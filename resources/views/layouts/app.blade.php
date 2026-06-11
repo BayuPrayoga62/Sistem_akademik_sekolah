@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <link rel="shrotcut icon" href="{{ asset('img/favicon.ico') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/logo_fu.svg') }}">
 </head>
 
 <body class="hold-transition login-page"
@@ -32,7 +32,7 @@
                 <strong>Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> &diams; <a href="http://smkn1jenpo.sch.id/" style="color: white;">MA'HAD
+                    </script> &diams; <a href="" style="color: white;">MA'HAD
                         FITYANUL ULUM</a>.
                 </strong>
             </marquee>

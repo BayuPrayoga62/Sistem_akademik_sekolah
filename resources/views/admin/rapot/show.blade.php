@@ -83,23 +83,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                            @foreach ($mapel as $val => $data)
-                                <?php $data = $data[0]; ?>
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->mapel->nama_mapel }}</td>
-                                    @php
-                                        $array = array('mapel' => $val, 'siswa' => $siswa->id);
-                                        $jsonData = json_encode($array);
-                                    @endphp
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['p_nilai'] }}</td>
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['p_predikat'] }}</td>
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['p_deskripsi'] }}</td>
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['k_nilai'] }}</td>
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['k_predikat'] }}</td>
-                                    <td class="ctr">{{ $data->cekRapot($jsonData)['k_deskripsi'] }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($mapel as $val => $data)
+                            @php
+                                $firstData = $data instanceof \Illuminate\Support\Collection ? $data->first() : $data;
+                            @endphp
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $firstData->mapel->nama_mapel ?? '' }}</td>
+                                @php
+                                    $array = array('mapel' => $val, 'siswa' => $siswa->id);
+                                    $jsonData = json_encode($array);
+                                @endphp
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['p_nilai'] ?? '' }}</td>
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['p_predikat'] ?? '' }}</td>
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['p_deskripsi'] ?? '' }}</td>
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['k_nilai'] ?? '' }}</td>
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['k_predikat'] ?? '' }}</td>
+                                <td class="ctr">{{ $firstData->cekRapot($jsonData)['k_deskripsi'] ?? '' }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

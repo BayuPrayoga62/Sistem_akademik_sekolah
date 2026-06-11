@@ -79,19 +79,18 @@
                     </thead>
                     <tbody>
                             @foreach ($mapel as $val => $data)
-                                <?php $data = $data[0]; ?>
+                                @php $data = is_array($data) ? ($data[0] ?? $data) : $data; @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->mapel->nama_mapel }}</td>
+                                    @php
+                                        $firstData = $data instanceof \Illuminate\Support\Collection ? $data->first() : $data;
+                                    @endphp
+                                    <td>{{ $firstData->mapel->nama_mapel ?? '' }}</td>
                                     @php
                                         $array = array('mapel' => $val, 'siswa' => $siswa->id);
                                         $jsonData = json_encode($array);
                                     @endphp
-                                    <td class="ctr">{{ $data->cekUlangan($jsonData)['ulha_1'] }}</td>
-                                    <td class="ctr">{{ $data->cekUlangan($jsonData)['ulha_2'] }}</td>
-                                    <td class="ctr">{{ $data->cekUlangan($jsonData)['uts'] }}</td>
-                                    <td class="ctr">{{ $data->cekUlangan($jsonData)['ulha_3'] }}</td>
-                                    <td class="ctr">{{ $data->cekUlangan($jsonData)['uas'] }}</td>
+
                                 </tr>
                             @endforeach
                     </tbody>
