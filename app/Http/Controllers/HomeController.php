@@ -13,6 +13,7 @@ use App\Paket;
 use App\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        //
     }
 
     /**
@@ -33,6 +34,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return view('landing');
+        }
+
         $hari = date('w');
         $jam = date('H:i');
         $jadwal = Jadwal::OrderBy('jam_mulai')->OrderBy('jam_selesai')->OrderBy('kelas_id')->where('hari_id', $hari)->where('jam_mulai', '<=', $jam)->where('jam_selesai', '>=', $jam)->get();

@@ -1,11 +1,17 @@
 @startuml
-left to right direction
+direction TB
 skinparam classAttributeIconSize 0
+
+%% =====================
+%% ENTITAS UTAMA
+%% =====================
 
 class User {
   - bigint id
   - varchar name
   - varchar email
+  - varchar no_induk
+  - varchar id_card
   - enum role
   + login() : boolean
   + logout() : void
@@ -13,38 +19,71 @@ class User {
 
 class Siswa {
   - bigint id
+  - varchar no_induk
   - varchar nis
   - varchar nama_siswa
   - int kelas_id
+  - char jk
+  - varchar telp
+  - varchar tmp_lahir
+  - date tgl_lahir
+  - varchar foto
   + lihatJadwal() : array
   + lihatNilai() : object
 }
 
 class Guru {
   - bigint id
+  - varchar id_card
   - varchar nip
   - varchar nama_guru
   - int mapel_id
+  - varchar kode
+  - char jk
+  - varchar telp
+  - varchar tmp_lahir
+  - date tgl_lahir
+  - varchar foto
   + inputNilai() : boolean
   + cetakJadwal() : void
 }
 
 class Kelas {
   - bigint id
+  - int paket_id
   - varchar nama_kelas
   - int guru_id
+}
+
+class Paket {
+  - bigint id
+  - varchar ket
 }
 
 class Mapel {
   - bigint id
   - varchar nama_mapel
+  - int paket_id
+  - varchar kelompok
+}
+
+class Hari {
+  - bigint id
+  - varchar nama_hari
+}
+
+class Ruang {
+  - bigint id
+  - varchar nama_ruang
 }
 
 class Jadwal {
   - bigint id
+  - int hari_id
   - int kelas_id
   - int mapel_id
   - int guru_id
+  - int ruang_id
   - time jam_mulai
   - time jam_selesai
 }
@@ -52,27 +91,134 @@ class Jadwal {
 class Rapot {
   - bigint id
   - int siswa_id
+  - int kelas_id
   - int mapel_id
   - int guru_id
-  - varchar p_nilai
-  - varchar k_nilai
+  - decimal p_nilai
+  - varchar p_predikat
+  - text p_deskripsi
+  - decimal k_nilai
+  - varchar k_predikat
+  - text k_deskripsi
   + hitungNilaiAkhir() : void
 }
 
-%% Relasi Inti (Simplified)
-User "1" *-- "1" Siswa : Akun
-User "1" *-- "1" Guru : Akun
+class Ulangan {
+  - bigint id
+  - int siswa_id
+  - int kelas_id
+  - int guru_id
+  - int mapel_id
+  - decimal ulha_1
+  - decimal ulha_2
+  - decimal uts
+  - decimal ulha_3
+  - decimal uas
+}
+
+class Sikap {
+  - bigint id
+  - int siswa_id
+  - int kelas_id
+  - int guru_id
+  - int mapel_id
+  - varchar sikap_1
+  - varchar sikap_2
+  - varchar sikap_3
+}
+
+class Nilai {
+  - bigint id
+  - int guru_id
+  - decimal kkm
+  - text deskripsi_a
+  - text deskripsi_b
+  - text deskripsi_c
+  - text deskripsi_d
+}
+
+class Kehadiran {
+  - bigint id
+  - varchar ket
+  - varchar color
+}
+
+class Absen {
+  - bigint id
+  - int guru_id
+  - date tanggal
+  - int kehadiran_id
+}
+
+class AbsenSiswa {
+  - bigint id
+  - date tanggal
+  - int siswa_id
+  - int jadwal_id
+  - int kehadiran_id
+}
+
+class Pengumuman {
+  - bigint id
+  - varchar judul
+  - text isi
+}
+
+%% =====================
+%% RELASI AKUN
+%% =====================
+
+User "1" o-- "1" Siswa : punya_akun
+User "1" o-- "1" Guru : punya_akun
+
+%% =====================
+%% RELASI MASTER DATA
+%% =====================
+
+Paket "1" o-- "*" Mapel : memiliki
+Paket "1" o-- "*" Kelas : terdiri_dari
 
 Kelas "1" o-- "*" Siswa : memiliki
 Guru "1" --> "1" Kelas : wali_kelas
 Guru "*" --> "1" Mapel : mengajar
+Guru "*" --> "1" Nilai : keterangan_nilai
 
-Jadwal "*" --> "1" Kelas : di_kelas
-Jadwal "*" --> "1" Mapel : pelajaran
-Jadwal "*" --> "1" Guru : pengajar
+Mapel "1" --> "1" Paket : bagian_dari
 
-Rapot "*" --> "1" Siswa : milik
-Rapot "*" --> "1" Mapel : pelajaran
-Rapot "*" --> "1" Guru : dinilai_oleh
+%% =====================
+%% RELASI JADWAL
+%% =====================
+
+Hari "1" o-- "*" Jadwal : memiliki
+Ruang "1" o-- "*" Jadwal : tempat
+Kelas "1" --> "*" Jadwal : di_kelas
+Mapel "1" --> "*" Jadwal : pelajaran
+Guru "1" --> "*" Jadwal : pengajar
+
+%% =====================
+%% RELASI PENILAIAN
+%% =====================
+
+Siswa "1" --> "*" Rapot : memiliki
+Siswa "1" --> "*" Ulangan : ambil
+Siswa "1" --> "*" Sikap : miliki
+Kelas "1" --> "*" Rapot : dari
+Mapel "1" --> "*" Rapot : pelajaran
+Mapel "1" --> "*" Ulangan : untuk
+Mapel "1" --> "*" Sikap : untuk
+Guru "1" --> "*" Rapot : dinilai_oleh
+Guru "1" --> "*" Ulangan : dari_guru
+Guru "1" --> "*" Sikap : dari_guru
+
+%% =====================
+%% RELASI KEHADIRAN
+%% =====================
+
+Kehadiran "1" o-- "*" Absen : status
+Guru "1" --> "*" Absen : absensi
+
+Kehadiran "1" o-- "*" AbsenSiswa : status
+Siswa "1" --> "*" AbsenSiswa : memiliki
+Jadwal "1" --> "*" AbsenSiswa : untuk
 
 @enduml
