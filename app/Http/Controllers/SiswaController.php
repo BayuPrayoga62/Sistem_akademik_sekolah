@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Auth;
 use App\User;
 use App\Kelas;
 use App\Siswa;
+use App\AbsenSiswa;
+use App\Jadwal;
 use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
@@ -260,6 +263,31 @@ class SiswaController extends Controller
         $siswa = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
         $kelas = Kelas::findorfail($id);
         return view('admin.siswa.show', compact('siswa', 'kelas'));
+    }
+
+    public function absensiSiswaAdmin()
+    {
+        $kelas = Kelas::whereIn('id', Jadwal::select('kelas_id')->distinct()->pluck('kelas_id'))
+            ->orderBy('nama_kelas')->get();
+
+        return view('admin.siswa.absensi', compact('kelas'));
+    }
+
+    public function absensiSiswaDetail(Request $request, $id)
+    {
+        $kelas = Kelas::findorfail($id);
+
+        $query = AbsenSiswa::whereHas('jadwal', function ($q) use ($id) {
+            $q->where('kelas_id', $id);
+        })->with(['siswa', 'jadwal.mapel', 'kehadiran']);
+
+        if ($request->tanggal) {
+            $query->where('tanggal', $request->tanggal);
+        }
+
+        $absensi = $query->orderBy('tanggal', 'desc')->get();
+
+        return view('admin.siswa.absensi-detail', compact('kelas', 'absensi'));
     }
 
     public function export_excel()

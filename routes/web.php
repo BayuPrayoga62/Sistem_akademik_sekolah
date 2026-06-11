@@ -19,6 +19,9 @@ Route::get('/welcome', function () {
   return view('welcome');
 });
 
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
+
 Route::get('/clear-cache', function () {
   Artisan::call('config:clear');
   Artisan::call('cache:clear');
@@ -34,8 +37,6 @@ Route::get('/reset/password/{id}', 'UserController@password')->name('reset.passw
 Route::patch('/reset/password/update/{id}', 'UserController@update_password')->name('reset.password.update')->middleware('guest');
 
 Route::middleware(['auth'])->group(function () {
-  Route::get('/', 'HomeController@index')->name('home');
-  Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/jadwal/sekarang', 'JadwalController@jadwalSekarang');
   Route::get('/profile', 'UserController@profile')->name('profile');
   Route::get('/pengaturan/profile', 'UserController@edit_profile')->name('pengaturan.profile');
@@ -52,11 +53,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ulangan/siswa', 'UlanganController@siswa')->name('ulangan.siswa');
     Route::get('/sikap/siswa', 'SikapController@siswa')->name('sikap.siswa');
     Route::get('/rapot/siswa', 'RapotController@siswa')->name('rapot.siswa');
+    Route::get('/absensi/siswa', 'GuruController@absenSiswaSelf')->name('absensi.siswa');
   });
 
   Route::middleware(['guru'])->group(function () {
     Route::get('/absen/harian', 'GuruController@absen')->name('absen.harian');
     Route::post('/absen/simpan', 'GuruController@simpan')->name('absen.simpan');
+    Route::get('/absen-siswa/kelas', 'GuruController@absenSiswaKelas')->name('absen-siswa.kelas');
+    Route::get('/absen-siswa/input/{id}', 'GuruController@absenSiswaInput')->name('absen-siswa.input');
+    Route::post('/absen-siswa/simpan', 'GuruController@absenSiswaSimpan')->name('absen-siswa.simpan');
+    Route::get('/absen-siswa/riwayat/{id}', 'GuruController@absenSiswaRiwayat')->name('absen-siswa.riwayat');
     Route::get('/jadwal/guru', 'JadwalController@guru')->name('jadwal.guru');
     Route::resource('/nilai', 'NilaiController');
     Route::resource('/ulangan', 'UlanganController');
@@ -100,6 +106,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/guru/import_excel', 'GuruController@import_excel')->name('guru.import_excel');
     Route::delete('/guru/deleteAll', 'GuruController@deleteAll')->name('guru.deleteAll');
     Route::resource('/guru', 'GuruController');
+    Route::get('/siswa/absensi', 'SiswaController@absensiSiswaAdmin')->name('siswa.absensi');
+    Route::get('/siswa/absensi/detail/{id}', 'SiswaController@absensiSiswaDetail')->name('siswa.absensi.detail');
     Route::get('/kelas/edit/json', 'KelasController@getEdit');
     Route::resource('/kelas', 'KelasController');
     Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');

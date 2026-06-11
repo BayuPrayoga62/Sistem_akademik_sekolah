@@ -9,6 +9,9 @@ use App\Mapel;
 use App\Jadwal;
 use App\Absen;
 use App\Kehadiran;
+use App\Kelas;
+use App\Siswa;
+use App\AbsenSiswa;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -257,6 +260,115 @@ class GuruController extends Controller
         $absen = Absen::where('tanggal', date('Y-m-d'))->get();
         $kehadiran = Kehadiran::limit(4)->get();
         return view('guru.absen', compact('absen', 'kehadiran'));
+    }
+
+    public function absenSiswaKelas()
+    {
+        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $jadwal = Jadwal::where('guru_id', $guru->id)
+            ->with(['kelas', 'mapel', 'hari'])
+            ->orderBy('hari_id')
+            ->orderBy('jam_mulai')
+            ->get();
+
+        return view('guru.absen-siswa.kelas', compact('jadwal'));
+    }
+
+    public function absenSiswaInput($id)
+    {
+        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $jadwal = Jadwal::with(['kelas', 'mapel', 'hari'])->findorfail($id);
+
+        if ($jadwal->guru_id != $guru->id) {
+            return redirect()->route('absen-siswa.kelas')->with('error', 'Anda tidak berwenang mengakses jadwal ini.');
+        }
+
+        $today = date('Y-m-d');
+        $todayDay = date('N');
+        $currentTime = date('H:i:s');
+        $canInput = $jadwal->hari_id == $todayDay && $currentTime >= $jadwal->jam_mulai && $currentTime <= $jadwal->jam_selesai;
+
+        $siswa = Siswa::where('kelas_id', $jadwal->kelas_id)->orderBy('nama_siswa')->get();
+        $kehadiran = Kehadiran::whereIn('id', [1, 2, 4, 6])->orderBy('id')->get();
+        $absensiHari = AbsenSiswa::where('tanggal', $today)
+            ->where('jadwal_id', $jadwal->id)
+            ->pluck('kehadiran_id', 'siswa_id')
+            ->toArray();
+
+        return view('guru.absen-siswa.input', compact('jadwal', 'siswa', 'kehadiran', 'absensiHari', 'today', 'canInput'));
+    }
+
+    public function absenSiswaSimpan(Request $request)
+    {
+        $this->validate($request, [
+            'jadwal_id' => 'required|integer',
+            'tanggal' => 'required|date',
+            'kehadiran_id' => 'required|array'
+        ]);
+
+        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $jadwal = Jadwal::findorfail($request->jadwal_id);
+
+        if ($jadwal->guru_id != $guru->id) {
+            return redirect()->route('absen-siswa.kelas')->with('error', 'Anda tidak berwenang menyimpan absensi ini.');
+        }
+
+        foreach ($request->kehadiran_id as $siswaId => $kehadiranId) {
+            if (!empty($kehadiranId)) {
+                AbsenSiswa::updateOrCreate(
+                    [
+                        'tanggal' => $request->tanggal,
+                        'siswa_id' => $siswaId,
+                        'jadwal_id' => $jadwal->id,
+                    ],
+                    [
+                        'kehadiran_id' => $kehadiranId,
+                    ]
+                );
+            }
+        }
+
+        return redirect()->route('absen-siswa.input', $jadwal->id)->with('success', 'Absensi siswa berhasil disimpan.');
+    }
+
+    public function absenSiswaRiwayat(Request $request, $id)
+    {
+        $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        $jadwal = Jadwal::with(['kelas', 'mapel'])->findorfail($id);
+
+        if ($jadwal->guru_id != $guru->id) {
+            return redirect()->route('absen-siswa.kelas')->with('error', 'Anda tidak berwenang mengakses riwayat ini.');
+        }
+
+        $query = AbsenSiswa::where('jadwal_id', $jadwal->id)
+            ->with(['siswa', 'kehadiran']);
+
+        if ($request->tanggal) {
+            $query->where('tanggal', $request->tanggal);
+        }
+
+        $absensi = $query->orderBy('tanggal', 'desc')->get();
+
+        return view('guru.absen-siswa.riwayat', compact('jadwal', 'absensi'));
+    }
+
+    public function absenSiswaSelf()
+    {
+        $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $absensi = AbsenSiswa::where('siswa_id', $siswa->id)
+            ->with(['jadwal.mapel', 'jadwal.kelas', 'kehadiran'])
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        $stats = $absensi->groupBy(function ($item) {
+            return $item->kehadiran->ket ?? 'Tidak Diketahui';
+        })->map->count();
+
+        return view('siswa.absensi', compact('siswa', 'absensi', 'stats'));
     }
 
     public function simpan(Request $request)

@@ -1,37 +1,45 @@
 <!-- Custom Style Sidebar Emerald Theme -->
 <style>
     /* Background Sidebar Hijau Gelap (Pesantren Theme) */
-    .main-sidebar, .main-sidebar::before {
-        background-color: #022c22 !important; 
-        box-shadow: 4px 0 10px rgba(0,0,0,0.1) !important;
+    .main-sidebar,
+    .main-sidebar::before {
+        background-color: #022c22 !important;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1) !important;
     }
-    
+
     /* Brand Link (Area Logo) */
     .brand-link {
         border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
         background-color: #022c22 !important;
         padding: 12px 0.5rem !important;
     }
+
     .brand-link .brand-text {
         font-weight: 600 !important;
         letter-spacing: 0.5px;
         color: #ffffff !important;
     }
+
     .brand-image {
-        background-color: #ffffff; /* Beri background putih pada logo agar SVG kontras */
+        background-color: #ffffff;
+        /* Beri background putih pada logo agar SVG kontras */
         padding: 2px;
         border-radius: 50%;
     }
 
     /* Styling Teks dan Ikon Menu Default */
     .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link {
-        color: #d1fae5 !important; /* Teks hijau sangat muda */
+        color: #d1fae5 !important;
+        /* Teks hijau sangat muda */
         border-radius: 8px !important;
-        margin: 2px 8px !important; /* Spasi samping agar rounded terlihat jelas */
+        margin: 2px 8px !important;
+        /* Spasi samping agar rounded terlihat jelas */
         transition: all 0.2s ease-in-out;
     }
+
     .sidebar-dark-primary .nav-sidebar>.nav-item .nav-icon {
-        color: #34d399 !important; /* Ikon hijau cerah */
+        color: #34d399 !important;
+        /* Ikon hijau cerah */
         transition: all 0.2s ease-in-out;
     }
 
@@ -39,20 +47,24 @@
     .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link:hover {
         background-color: rgba(16, 185, 129, 0.15) !important;
         color: #ffffff !important;
-        transform: translateX(4px); /* Efek maju sedikit (modern) */
+        transform: translateX(4px);
+        /* Efek maju sedikit (modern) */
     }
+
     .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link:hover .nav-icon {
         color: #ffffff !important;
     }
 
     /* Menu Aktif (Active) */
-    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, 
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
     .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-        background-color: #059669 !important; /* Emerald green */
+        background-color: #059669 !important;
+        /* Emerald green */
         color: #ffffff !important;
         box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.4) !important;
         transform: translateY(-1px);
     }
+
     .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active .nav-icon {
         color: #ffffff !important;
     }
@@ -62,8 +74,9 @@
         padding-left: 2rem !important;
         margin: 1px 8px !important;
     }
+
     .nav-treeview>.nav-item>.nav-link:hover {
-        background-color: rgba(255,255,255,0.05) !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
     }
 </style>
 
@@ -79,7 +92,8 @@
     <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Operator')
                     <li class="nav-item has-treeview" id="liDashboard">
                         <a href="#" class="nav-link" id="Dashboard">
@@ -151,7 +165,7 @@
                             </li>
                         </ul>
                     </li>
-                    @if (Auth::user()->role == "Admin")
+                    @if (Auth::user()->role == 'Admin')
                         <li class="nav-item has-treeview" id="liViewTrash">
                             <a href="#" class="nav-link" id="ViewTrash">
                                 <i class="nav-icon fas fa-recycle"></i>
@@ -205,6 +219,12 @@
                         <a href="{{ route('guru.absensi') }}" class="nav-link" id="AbsensiGuru">
                             <i class="fas fa-calendar-check nav-icon"></i>
                             <p>Absensi Guru</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('siswa.absensi') }}" class="nav-link" id="AbsensiSiswaAdmin">
+                            <i class="fas fa-clipboard-check nav-icon"></i>
+                            <p>Absensi Siswa</p>
                         </a>
                     </li>
                     <li class="nav-item has-treeview" id="liNilai">
@@ -262,6 +282,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('absen-siswa.kelas') }}" class="nav-link" id="AbsenSiswa">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            <p>Absensi Siswa</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('jadwal.guru') }}" class="nav-link" id="JadwalGuru">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             <p>Jadwal</p>
@@ -282,10 +308,8 @@
                                     <p>Entry Nilai Ulangan</p>
                                 </a>
                             </li>
-                            @if (
-                                Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == "Pendidikan Agama dan Budi Pekerti" ||
-                                Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == "Pendidikan Pancasila dan Kewarganegaraan"
-                            )
+                            @if (Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == 'Pendidikan Agama dan Budi Pekerti' ||
+                                    Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == 'Pendidikan Pancasila dan Kewarganegaraan')
                                 <li class="nav-item">
                                     <a href="{{ route('sikap.index') }}" class="nav-link" id="SikapGuru">
                                         <i class="fas fa-file-alt nav-icon"></i>
@@ -319,6 +343,12 @@
                         <a href="{{ route('jadwal.siswa') }}" class="nav-link" id="JadwalSiswa">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             <p>Jadwal</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('absensi.siswa') }}" class="nav-link" id="AbsensiSiswa">
+                            <i class="fas fa-clipboard-check nav-icon"></i>
+                            <p>Absensi</p>
                         </a>
                     </li>
                     <li class="nav-item">
