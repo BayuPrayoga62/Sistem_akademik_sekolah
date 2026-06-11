@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="shrotcut icon" href="{{ asset('img/favicon.ico') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/logo_fu.svg') }}">
 </head>
 
 <body>

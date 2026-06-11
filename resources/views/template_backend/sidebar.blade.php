@@ -1,3 +1,72 @@
+<!-- Custom Style Sidebar Emerald Theme -->
+<style>
+    /* Background Sidebar Hijau Gelap (Pesantren Theme) */
+    .main-sidebar, .main-sidebar::before {
+        background-color: #022c22 !important; 
+        box-shadow: 4px 0 10px rgba(0,0,0,0.1) !important;
+    }
+    
+    /* Brand Link (Area Logo) */
+    .brand-link {
+        border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
+        background-color: #022c22 !important;
+        padding: 12px 0.5rem !important;
+    }
+    .brand-link .brand-text {
+        font-weight: 600 !important;
+        letter-spacing: 0.5px;
+        color: #ffffff !important;
+    }
+    .brand-image {
+        background-color: #ffffff; /* Beri background putih pada logo agar SVG kontras */
+        padding: 2px;
+        border-radius: 50%;
+    }
+
+    /* Styling Teks dan Ikon Menu Default */
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link {
+        color: #d1fae5 !important; /* Teks hijau sangat muda */
+        border-radius: 8px !important;
+        margin: 2px 8px !important; /* Spasi samping agar rounded terlihat jelas */
+        transition: all 0.2s ease-in-out;
+    }
+    .sidebar-dark-primary .nav-sidebar>.nav-item .nav-icon {
+        color: #34d399 !important; /* Ikon hijau cerah */
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Efek Hover (Saat Disorot Kursor) */
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link:hover {
+        background-color: rgba(16, 185, 129, 0.15) !important;
+        color: #ffffff !important;
+        transform: translateX(4px); /* Efek maju sedikit (modern) */
+    }
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link:hover .nav-icon {
+        color: #ffffff !important;
+    }
+
+    /* Menu Aktif (Active) */
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, 
+    .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+        background-color: #059669 !important; /* Emerald green */
+        color: #ffffff !important;
+        box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.4) !important;
+        transform: translateY(-1px);
+    }
+    .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active .nav-icon {
+        color: #ffffff !important;
+    }
+
+    /* Sub-menu (Treeview) */
+    .nav-treeview>.nav-item>.nav-link {
+        padding-left: 2rem !important;
+        margin: 1px 8px !important;
+    }
+    .nav-treeview>.nav-item>.nav-link:hover {
+        background-color: rgba(255,255,255,0.05) !important;
+    }
+</style>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->

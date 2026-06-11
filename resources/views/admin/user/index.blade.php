@@ -29,7 +29,7 @@
                     <td>{{ $role }}</td>
                     <td>{{ $data->count() }}</td>
                     <td>
-                      <a href="{{ route('user.show', Crypt::encrypt($role)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                      <a href="{{ route('user.show', Crypt::encrypt($role)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Detail</a>
                     </td>
                   </tr>
                 @endforeach
@@ -68,7 +68,7 @@
                   <select id="role" type="text" class="form-control @error('role') is-invalid @enderror select2bs4" name="role" value="{{ old('role') }}" autocomplete="role">
                     <option value="">-- Select {{ __('Level User') }} --</option>
                     <option value="Admin">Admin</option>
-                    <option value="Operator">Operator</option>
+                    <!-- <option value="Operator">Operator</option> -->
                     <option value="Guru">Guru</option>
                     <option value="Siswa">Siswa</option>
                   </select>

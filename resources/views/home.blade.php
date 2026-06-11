@@ -4,6 +4,96 @@
   <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
+<!-- Custom Emerald Theme for Home -->
+<style>
+    /* Card Modernization */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        border: none;
+        margin-bottom: 24px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Card Headers - Pesantren Theme */
+    .card-primary:not(.card-outline) > .card-header {
+        background-color: #059669 !important; /* Emerald */
+        color: #fff !important;
+        border-radius: 12px 12px 0 0;
+    }
+    .card-warning:not(.card-outline) > .card-header {
+        background-color: #F59E0B !important; /* Warm Amber for Pengumuman */
+        color: #fff !important;
+        border-radius: 12px 12px 0 0;
+    }
+    .card-info:not(.card-outline) > .card-header {
+        background-color: #10B981 !important; /* Light Emerald for Keterangan */
+        color: #fff !important;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .card-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    /* Table Modernization */
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    .table thead th {
+        background-color: #F9FAFB;
+        color: #374151;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #E5E7EB;
+        padding: 12px 16px;
+    }
+    .table tbody td {
+        padding: 16px;
+        vertical-align: middle;
+        color: #4B5563;
+        border-bottom: 1px solid #F3F4F6;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(249, 250, 251, 0.5);
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(16, 185, 129, 0.05);
+    }
+
+    /* Typograpy in Tables */
+    .table tbody td h5.card-title {
+        color: #111827;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4px;
+        display: block; /* Override default AdminLTE float */
+        float: none;
+    }
+    .table tbody td .text-muted {
+        color: #6B7280 !important;
+        font-size: 0.85rem;
+    }
+    
+    /* Modern Color Badges Indicator */
+    td > div[style*="width:30px"], td > div[style*="width: 30px"] {
+        border-radius: 8px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    }
+</style>
+
     <div class="col-md-12" id="load_content">
       <div class="card card-primary">
         <div class="card-body">
@@ -75,7 +165,7 @@
                   </tr>
                 @elseif ($hari == '0' || $hari == '6')
                   <tr>
-                    <td colspan='5' style='background:#fff;text-align:center;font-weight:bold;font-size:18px;'>Sekalah Libur!</td>
+                    <td colspan='5' style='background:#fff;text-align:center;font-weight:bold;font-size:18px;'>Sekolah Libur!</td>
                   </tr>
                 @elseif($hari == '1' && $jam >= '07:00' && $jam <= '07:30')
                   <tr>
@@ -147,7 +237,7 @@
           if (hari == '0' || hari == '6') {
             $("#data-jadwal").html(
               `<tr>
-                <td colspan='5' style='background:#fff;text-align:center;font-weight:bold;font-size:18px;'>Sekalah Libur!</td>
+                <td colspan='5' style='background:#fff;text-align:center;font-weight:bold;font-size:18px;'>Sekolah Libur!</td>
               </tr>`
             );
           } else {

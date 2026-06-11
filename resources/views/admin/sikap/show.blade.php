@@ -69,7 +69,7 @@
                     <thead>
                         <tr>
                             <th rowspan="2" class="ctr">No.</th>
-                            <th rowspan="2">Nama Siswa</th>
+                            <th rowspan="2">Nama Mapel</th>
                             <th colspan="3" class="ctr">Nilai Sikap</th>
                         </tr>
                         <tr>
@@ -82,14 +82,17 @@
                             @foreach ($mapel as  $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->nama_mapel }}</td>
                                     @php
-                                        $array = array('mapel' => $data->id, 'siswa' => $siswa->id);
+                                        $firstData = $data instanceof \Illuminate\Support\Collection ? $data->first() : $data;
+                                    @endphp
+                                    <td>{{ $firstData->nama_mapel ?? '' }}</td>
+                                    @php
+                                        $array = array('mapel' => $firstData->id, 'siswa' => $siswa->id);
                                         $jsonData = json_encode($array);
                                     @endphp
-                                    <td class="ctr">{{ $data->cekSikap($jsonData)['sikap_1'] }}</td>
-                                    <td class="ctr">{{ $data->cekSikap($jsonData)['sikap_2'] }}</td>
-                                    <td class="ctr">{{ $data->cekSikap($jsonData)['sikap_3'] }}</td>
+                                    <td class="ctr">{{ $firstData->cekSikap($jsonData)['sikap_1'] ?? '' }}</td>
+                                    <td class="ctr">{{ $firstData->cekSikap($jsonData)['sikap_2'] ?? '' }}</td>
+                                    <td class="ctr">{{ $firstData->cekSikap($jsonData)['sikap_3'] ?? '' }}</td>
                                 </tr>
                             @endforeach
                     </tbody>

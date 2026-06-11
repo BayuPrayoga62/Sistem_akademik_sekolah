@@ -364,7 +364,7 @@
 
             <div class="auth-links">
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">{{ __('Lupa Password?') }}</a>
+                    <!-- <a href="{{ route('password.request') }}">{{ __('Lupa Password?') }}</a> -->
                 @endif
                 <!-- <a href="{{ route('register') }}">Belum punya akun? Buat Akun Baru</a> -->
             </div>

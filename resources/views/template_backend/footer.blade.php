@@ -3,7 +3,7 @@
         <strong>Copyright &copy;
             <script>
                 document.write(new Date().getFullYear());
-            </script> &diams; <a href="http://smkn1jenpo.sch.id/">MA'HAD FITYANUL ULUM</a>.
+            </script> &diams; <a href="">MA'HAD FITYANUL ULUM</a>.
         </strong>
     </marquee>
 </footer>

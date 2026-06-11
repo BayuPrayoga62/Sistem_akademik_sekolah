@@ -71,7 +71,7 @@
                     <thead>
                         <tr>
                             <th rowspan="2" class="ctr">No.</th>
-                            <th rowspan="2">Nama Siswa</th>
+                            <th rowspan="2">Nama Mapel</th>
                             <th colspan="3" class="ctr">Nilai Sikap</th>
                         </tr>
                         <tr>
@@ -85,9 +85,12 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_mapel }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_1'] }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_2'] }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_3'] }}</td>
+                                @php
+                                    $sikap = $data->sikap($data->id) ?? [];
+                                @endphp
+                                <td class="ctr">{{ $sikap['sikap_1'] ?? '' }}</td>
+                                <td class="ctr">{{ $sikap['sikap_2'] ?? '' }}</td>
+                                <td class="ctr">{{ $sikap['sikap_3'] ?? '' }}</td>
                             </tr>
                         @endforeach
                     </tbody>

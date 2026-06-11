@@ -5,6 +5,62 @@
   <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
+<!-- Custom Emerald Theme for Admin Dashboard -->
+<style>
+    /* Modern Card Boxes */
+    .small-box {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        padding: 20px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        min-height: 140px;
+    }
+    .small-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    .small-box .inner h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    .small-box .inner p {
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+    .small-box .icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2.5rem;
+        opacity: 0.4;
+    }
+    .small-box .small-box-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.1);
+        color: #fff;
+        text-align: center;
+        padding: 8px 0;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
+    .small-box .small-box-footer:hover {
+        background: rgba(0,0,0,0.2);
+    }
+    .bg-info { background: #059669 !important; }
+    .bg-warning { background: #F59E0B !important; }
+    .bg-success { background: #10B981 !important; }
+    @media (max-width: 768px) {
+        .col-lg-4.col-6 { flex: 0 0 100%; max-width: 100%; margin-bottom: 16px; }
+    }
+</style>
+<div class="row">
     <div class="col-lg-4 col-6">
         <div class="small-box bg-info">
             <div class="inner">
