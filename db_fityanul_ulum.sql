@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jun 2026 pada 16.42
+-- Waktu pembuatan: 13 Jun 2026 pada 16.54
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -479,7 +479,8 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id`, `no_induk`, `nis`, `nama_siswa`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `kelas_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (6, '1', '1', 'Bayu Prayoga', 'L', '081111', 'Tegal', '2004-02-06', 'uploads/siswa/52471919042020_male.jpg', 8, '2026-06-13 14:39:23', '2026-06-13 14:39:23', NULL),
-(7, '1234567891', '1234567891', 'Baharudin', 'L', '081100992233', 'Jogjakarta', '2026-06-13', 'uploads/siswa/52471919042020_male.jpg', 8, '2026-06-13 14:39:51', '2026-06-13 14:39:51', NULL);
+(7, '1234567891', '1234567891', 'Baharudin', 'L', '081100992233', 'Jogjakarta', '2026-06-13', 'uploads/siswa/52471919042020_male.jpg', 8, '2026-06-13 14:39:51', '2026-06-13 14:39:51', NULL),
+(8, '1234567892', '1234567892', 'Kayla Abigail', 'P', '081100992299', 'Semarang', '2010-02-06', 'uploads/siswa/50271431012020_female.jpg', 9, '2026-06-13 14:52:42', '2026-06-13 14:52:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -767,7 +768,7 @@ ALTER TABLE `sikap`
 -- AUTO_INCREMENT untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulangan`
