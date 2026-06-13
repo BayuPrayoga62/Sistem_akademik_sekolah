@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jun 2026 pada 15.47
+-- Waktu pembuatan: 13 Jun 2026 pada 16.42
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -35,6 +35,13 @@ CREATE TABLE `absensi_guru` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `absensi_guru`
+--
+
+INSERT INTO `absensi_guru` (`id`, `tanggal`, `guru_id`, `kehadiran_id`, `created_at`, `updated_at`) VALUES
+(1, '2026-06-12', 1, 6, '2026-06-12 14:12:45', '2026-06-12 14:12:45');
 
 -- --------------------------------------------------------
 
@@ -144,13 +151,6 @@ CREATE TABLE `jadwal` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `jadwal`
---
-
-INSERT INTO `jadwal` (`id`, `hari_id`, `kelas_id`, `mapel_id`, `guru_id`, `jam_mulai`, `jam_selesai`, `ruang_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 6, 1, '08:00:00', '09:30:00', 1, '2026-05-07 11:30:02', '2026-05-07 11:30:02', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -198,9 +198,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `paket_id`, `guru_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'UTAMA 1', 7, 1, '2026-04-16 09:19:39', '2026-04-16 09:19:39', NULL),
-(2, 'UTAMA 2', 8, 2, '2026-04-16 09:21:49', '2026-04-16 09:21:49', NULL),
-(3, 'UTAMA 3', 7, 4, '2026-05-07 11:38:57', '2026-05-07 11:38:57', NULL);
+(8, 'NAHWU SOROF A', 3, 1, '2026-06-13 14:30:40', '2026-06-13 14:30:40', NULL),
+(9, 'NAHWU SOROF B', 3, 4, '2026-06-13 14:31:18', '2026-06-13 14:31:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -228,8 +227,9 @@ INSERT INTO `mapel` (`id`, `nama_mapel`, `paket_id`, `kelompok`, `created_at`, `
 (3, 'Matematika', 9, 'A', '2026-04-16 09:09:55', '2026-04-16 09:09:55', NULL),
 (4, 'Pendidikan Agama dan Budi Pekerti', 9, 'A', '2026-04-16 09:09:55', '2026-04-16 09:09:55', NULL),
 (5, 'Pendidikan Pancasila dan Kewarganegaraan', 9, 'A', '2026-04-16 09:09:55', '2026-04-16 09:09:55', NULL),
-(6, 'Pemrograman', 9, 'A', '2026-04-16 09:12:29', '2026-04-16 09:12:29', NULL),
-(7, 'BTQ', 9, 'A', '2026-06-11 05:18:35', '2026-06-11 05:18:35', NULL);
+(6, 'Nahwu Sorof', 9, 'A', '2026-04-16 09:12:29', '2026-06-12 13:57:45', NULL),
+(7, 'BTQ', 9, 'A', '2026-06-11 05:18:35', '2026-06-11 05:18:35', NULL),
+(8, 'Tajwid & Bahasa Arab', 9, 'A', '2026-06-12 13:59:42', '2026-06-12 13:59:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -291,7 +291,7 @@ CREATE TABLE `nilai` (
 --
 
 INSERT INTO `nilai` (`id`, `guru_id`, `kkm`, `deskripsi_a`, `deskripsi_b`, `deskripsi_c`, `deskripsi_d`, `created_at`, `updated_at`) VALUES
-(1, 1, 70, NULL, NULL, NULL, NULL, '2026-04-16 09:15:00', '2026-04-16 09:15:00'),
+(1, 1, 70, '85', '80', '70', '69', '2026-04-16 09:15:00', '2026-06-13 13:35:41'),
 (2, 2, 70, NULL, NULL, NULL, NULL, '2026-04-16 09:19:05', '2026-04-16 09:19:05'),
 (3, 3, 70, NULL, NULL, NULL, NULL, '2026-05-07 10:24:56', '2026-05-07 10:24:56'),
 (4, 4, 70, NULL, NULL, NULL, NULL, '2026-05-07 10:36:45', '2026-05-07 10:36:45');
@@ -314,14 +314,9 @@ CREATE TABLE `paket` (
 --
 
 INSERT INTO `paket` (`id`, `ket`, `created_at`, `updated_at`) VALUES
-(1, 'Bisnis kontruksi dan Properti', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(2, 'Desain Permodelan dan Informasi Bangunan', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(3, 'Elektronika Industri', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(4, 'Otomasi Industri', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(5, 'Teknik Pemesinan', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(6, 'Teknik dan Bisnis Sepeda Motor', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(7, 'Rekayasa Perangkat Lunak', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
-(8, 'Matematika', '2026-04-16 09:09:55', '2026-04-16 09:09:55');
+(1, 'Ilmu Syariah', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
+(2, 'Ilmu Bahasa', '2026-04-16 09:09:55', '2026-04-16 09:09:55'),
+(3, 'Ilmu Al Qur\'an', '2026-04-16 09:09:55', '2026-04-16 09:09:55');
 
 -- --------------------------------------------------------
 
@@ -483,9 +478,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `no_induk`, `nis`, `nama_siswa`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `kelas_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1', '1', 'Bayu Prayoga', 'L', '081111', 'Tegal', '2004-02-06', 'uploads/siswa/52471919042020_male.jpg', 1, '2026-04-16 09:22:53', '2026-04-16 09:22:53', NULL),
-(2, '2', '2', 'Kayla Abigail', 'P', '082222', 'Jogjakarta', '2005-08-10', 'uploads/siswa/50271431012020_female.jpg', 2, '2026-04-16 09:23:47', '2026-04-16 09:23:47', NULL),
-(3, '1234567891', '1234567891', 'Baharudin', 'L', '0897114109', 'Semarang', '2026-05-07', 'uploads/siswa/52471919042020_male.jpg', 1, '2026-05-07 11:15:04', '2026-05-07 11:15:04', NULL);
+(6, '1', '1', 'Bayu Prayoga', 'L', '081111', 'Tegal', '2004-02-06', 'uploads/siswa/52471919042020_male.jpg', 8, '2026-06-13 14:39:23', '2026-06-13 14:39:23', NULL),
+(7, '1234567891', '1234567891', 'Baharudin', 'L', '081100992233', 'Jogjakarta', '2026-06-13', 'uploads/siswa/52471919042020_male.jpg', 8, '2026-06-13 14:39:51', '2026-06-13 14:39:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -538,7 +532,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (2, 'bayu prayoga', 'bayu@gmail.com', NULL, '$2y$10$Jasw8DnA4as0K12mt5c0XeGG53hWkfTWY2sanS3Mnvr4RYx/lx0Su', 'Siswa', '1', NULL, NULL, '2026-04-16 09:25:03', '2026-04-16 09:25:03', NULL),
 (3, 'Muh Gunawan Hadi', 'muhgunawan@gmail.com', NULL, '$2y$10$uIaJgnQ5EH9pgNbYcZJvwOLz9aZKuHeTd8r6R6lTYVbWyaiPHdtdu', 'Guru', NULL, '00001', NULL, '2026-04-16 09:26:04', '2026-04-16 09:26:04', NULL),
 (4, 'Izmi Fatimach', 'izmi@gmail.com', NULL, '$2y$10$YHixASkJQs2PmuoATPjT7uoLKo1Ackx8fnMjSaIDA/uGrWEXqVE/K', 'Guru', NULL, '00002', NULL, '2026-04-16 09:26:57', '2026-04-16 09:26:57', NULL),
-(5, 'operator', 'operator@gmail.com', NULL, '$2y$10$YXuAr17eLHlO4WGfrUomuO6JgtqTKnI1R0Dlvj3i2yfMLNrnAnKNi', 'Operator', NULL, NULL, NULL, '2026-04-16 09:29:02', '2026-06-11 05:01:43', '2026-06-11 05:01:43');
+(5, 'operator', 'operator@gmail.com', NULL, '$2y$10$YXuAr17eLHlO4WGfrUomuO6JgtqTKnI1R0Dlvj3i2yfMLNrnAnKNi', 'Operator', NULL, NULL, NULL, '2026-04-16 09:29:02', '2026-06-11 05:01:43', '2026-06-11 05:01:43'),
+(6, 'baharudin', 'baharudin@gmail.com', NULL, '$2y$10$QsP7Haf3N0STRrfdkYaXxu7hrIk72HYZIj7Wteulo7pu6k2reYQlC', 'Siswa', '1234567891', NULL, NULL, '2026-06-12 13:34:05', '2026-06-12 13:34:05', NULL);
 
 --
 -- Indexes for dumped tables
@@ -676,7 +671,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `absensi_guru`
 --
 ALTER TABLE `absensi_guru`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `absensi_siswa`
@@ -706,7 +701,7 @@ ALTER TABLE `hari`
 -- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `kehadiran`
@@ -718,13 +713,13 @@ ALTER TABLE `kehadiran`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -772,7 +767,7 @@ ALTER TABLE `sikap`
 -- AUTO_INCREMENT untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulangan`
@@ -784,7 +779,7 @@ ALTER TABLE `ulangan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
