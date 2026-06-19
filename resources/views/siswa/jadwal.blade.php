@@ -8,6 +8,9 @@
 @section('content')
 <div class="col-md-12">
     <div class="card">
+        <div class="card-header">
+            <a href="{{ url('/jadwalkelaspdf/' . $kelas->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> Download PDF</a>
+        </div>
         <div class="card-body">
           <table id="example2" class="table table-bordered table-striped table-hover">
             <thead>

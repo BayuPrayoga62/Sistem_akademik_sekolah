@@ -350,7 +350,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Sains dan Teknologi</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Pembelajaran IPA, Biologi, Fisika, dan Kimia serta pengenalan teknologi modern
+                        Pembelajaran serta pengenalan teknologi modern
                     </p>
                     <div
                         class="mt-6 pt-6 border-t border-gray-100 group-hover:border-emerald-200 transition-colors duration-300">
@@ -367,7 +367,7 @@
             <div class="text-center space-y-4 mb-16">
                 <p class="text-sm font-semibold text-emerald-600 uppercase tracking-widest">Galeri</p>
                 <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 text-balance">
-                    Dokumentasi Sekolah
+                    Dokumentasi Yayasan
                 </h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                     Lihat momen-momen berharga dari aktivitas akademik dan ekstrakurikuler

@@ -38,6 +38,7 @@ Route::patch('/reset/password/update/{id}', 'UserController@update_password')->n
 
 Route::middleware(['auth'])->group(function () {
   Route::get('/jadwal/sekarang', 'JadwalController@jadwalSekarang');
+  Route::get('/jadwalkelaspdf/{id}', 'JadwalController@cetak_pdf');
   Route::get('/profile', 'UserController@profile')->name('profile');
   Route::get('/pengaturan/profile', 'UserController@edit_profile')->name('pengaturan.profile');
   Route::post('/pengaturan/ubah-profile', 'UserController@ubah_profile')->name('pengaturan.ubah-profile');
@@ -97,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
     Route::get('/guru/absensi', 'GuruController@absensi')->name('guru.absensi');
     Route::get('/guru/kehadiran/{id}', 'GuruController@kehadiran')->name('guru.kehadiran');
+    Route::get('/guru/kehadiran-export/{id}', 'GuruController@export_kehadiran')->name('guru.kehadiran.export');
     Route::get('/absen/json', 'GuruController@json');
     Route::get('/guru/mapel/{id}', 'GuruController@mapel')->name('guru.mapel');
     Route::get('/guru/ubah-foto/{id}', 'GuruController@ubah_foto')->name('guru.ubah-foto');
@@ -108,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/guru', 'GuruController');
     Route::get('/siswa/absensi', 'SiswaController@absensiSiswaAdmin')->name('siswa.absensi');
     Route::get('/siswa/absensi/detail/{id}', 'SiswaController@absensiSiswaDetail')->name('siswa.absensi.detail');
+    Route::get('/siswa/absensi/detail/export_excel/{id}', 'SiswaController@absensiSiswaExportExcel')->name('siswa.absensi.export_excel');
     Route::get('/kelas/edit/json', 'KelasController@getEdit');
     Route::resource('/kelas', 'KelasController');
     Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');
@@ -122,7 +125,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mapel/getMapelJson', 'MapelController@getMapelJson');
     Route::resource('/mapel', 'MapelController');
     Route::get('/jadwal/view/json', 'JadwalController@view');
-    Route::get('/jadwalkelaspdf/{id}', 'JadwalController@cetak_pdf');
     Route::get('/jadwal/export_excel', 'JadwalController@export_excel')->name('jadwal.export_excel');
     Route::post('/jadwal/import_excel', 'JadwalController@import_excel')->name('jadwal.import_excel');
     Route::delete('/jadwal/deleteAll', 'JadwalController@deleteAll')->name('jadwal.deleteAll');

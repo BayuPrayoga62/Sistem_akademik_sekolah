@@ -56,7 +56,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-success" @if (!$canInput) disabled @endif><i
+                    <button type="submit" class="btn btn-success"><i
                             class="nav-icon fas fa-save"></i> Simpan Absensi</button>
                 </form>
             </div>

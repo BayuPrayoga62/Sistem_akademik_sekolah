@@ -249,12 +249,18 @@ class SiswaController extends Controller
 
     public function cetak_pdf(Request $request)
     {
+        set_time_limit(300);
         $siswa = siswa::OrderBy('nama_siswa', 'asc')->where('kelas_id', $request->id)->get();
         $kelas = Kelas::findorfail($request->id);
 
         $pdf = PDF::loadView('siswa-pdf', ['siswa' => $siswa, 'kelas' => $kelas]);
-        return $pdf->stream();
-        // return $pdf->stream('jadwal-pdf.pdf');
+        $pdf->setOptions(['isRemoteEnabled' => false]);
+        $filename = 'siswa-' . str_replace(' ', '-', strtolower($kelas->nama_kelas)) . '.pdf';
+
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 
     public function kelas($id)
@@ -288,6 +294,13 @@ class SiswaController extends Controller
         $absensi = $query->orderBy('tanggal', 'desc')->get();
 
         return view('admin.siswa.absensi-detail', compact('kelas', 'absensi'));
+    }
+
+    public function absensiSiswaExportExcel(Request $request, $id)
+    {
+        $kelas = Kelas::findorfail($id);
+        $nama_kelas = str_replace(' ', '-', strtolower($kelas->nama_kelas));
+        return Excel::download(new \App\Exports\AbsensiSiswaExport($id, $request->tanggal), 'absensi-siswa-'.$nama_kelas.'.xlsx');
     }
 
     public function export_excel()
