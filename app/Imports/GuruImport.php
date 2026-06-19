@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Guru;
 use App\Mapel;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class GuruImport implements ToModel
+class GuruImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -28,8 +29,9 @@ class GuruImport implements ToModel
         } else {
             $id_card = $kode;
         }
-        $mapel = Mapel::where('nama_mapel', $row[3])->first();
-        if ($row[2] == 'L') {
+
+        $mapel = Mapel::where('nama_mapel', $row['mata_pelajaran'])->first();
+        if (strtoupper($row['jenis_kelamin']) == 'L') {
             $foto = 'uploads/guru/35251431012020_male.jpg';
         } else {
             $foto = 'uploads/guru/23171022042020_female.jpg';
@@ -37,9 +39,9 @@ class GuruImport implements ToModel
 
         return new Guru([
             'id_card' => $id_card,
-            'nama_guru' => $row[0],
-            'nip' => $row[1],
-            'jk' => $row[2],
+            'nama_guru' => $row['nama_guru'],
+            'nip' => $row['nip'],
+            'jk' => $row['jenis_kelamin'],
             'foto' => $foto,
             'mapel_id' => $mapel->id,
         ]);

@@ -194,11 +194,17 @@ class JadwalController extends Controller
 
     public function cetak_pdf(Request $request)
     {
+        set_time_limit(300);
         $jadwal = Jadwal::OrderBy('hari_id', 'asc')->OrderBy('jam_mulai', 'asc')->where('kelas_id', $request->id)->get();
         $kelas = Kelas::findorfail($request->id);
         $pdf = PDF::loadView('jadwal-pdf', ['jadwal' => $jadwal, 'kelas' => $kelas]);
-        return $pdf->stream();
-        // return $pdf->stream('jadwal-pdf.pdf');
+        $pdf->setOptions(['isRemoteEnabled' => false]);
+        $filename = 'jadwal-' . str_replace(' ', '-', strtolower($kelas->nama_kelas)) . '.pdf';
+
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 
     public function guru()

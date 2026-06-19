@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Exports\GuruExport;
+use App\Exports\AbsenExport;
 use App\Imports\GuruImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
@@ -459,6 +460,14 @@ class GuruController extends Controller
     public function export_excel()
     {
         return Excel::download(new GuruExport, 'guru.xlsx');
+    }
+
+    public function export_kehadiran($id)
+    {
+        $id = Crypt::decrypt($id);
+        $guru = Guru::findorfail($id);
+        $filename = 'kehadiran-' . str_replace(' ', '-', strtolower($guru->nama_guru)) . '.xlsx';
+        return Excel::download(new AbsenExport($id), $filename);
     }
 
     public function import_excel(Request $request)

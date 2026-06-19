@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Siswa;
 use App\Kelas;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SiswaImport implements ToModel
+class SiswaImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -15,17 +16,17 @@ class SiswaImport implements ToModel
      */
     public function model(array $row)
     {
-        $kelas = Kelas::where('nama_kelas', $row[3])->first();
-        if ($row[2] == 'L') {
+        $kelas = Kelas::where('nama_kelas', $row['kelas'])->first();
+        if (strtoupper($row['jenis_kelamin']) == 'L') {
             $foto = 'uploads/siswa/52471919042020_male.jpg';
         } else {
             $foto = 'uploads/siswa/50271431012020_female.jpg';
         }
 
         return new Siswa([
-            'nama_siswa' => $row[0],
-            'no_induk' => $row[1],
-            'jk' => $row[2],
+            'nama_siswa' => $row['nama_siswa'],
+            'no_induk' => $row['no_induk'],
+            'jk' => $row['jenis_kelamin'],
             'foto' => $foto,
             'kelas_id' => $kelas->id,
         ]);

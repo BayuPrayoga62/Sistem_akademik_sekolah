@@ -18,6 +18,7 @@
                             value="{{ request('tanggal') }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ route('siswa.absensi.export_excel', ['id' => $kelas->id, 'tanggal' => request('tanggal')]) }}" class="btn btn-success ml-2"><i class="fas fa-file-excel"></i> Export Excel</a>
                 </form>
                 <table id="example1" class="table table-bordered table-striped table-hover">
                     <thead>
