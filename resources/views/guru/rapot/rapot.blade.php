@@ -140,6 +140,7 @@
                                         @endif
                                     @else
                                         <td class="ctr">
+                                            <input type="hidden" class="rapot_{{$data->id}}" value="">
                                             <div class="text-center"></div>
                                         </td>
                                         <td class="ctr">
@@ -153,13 +154,13 @@
                                             <div class="knilai_{{$data->id}} text-center"></div>
                                         </td>
                                         <td class="ctr">
-                                            <input type="text" name="predikat" class="form-control text-center" disabled>
+                                            <input type="text" name="predikat" class="form-control text-center predikat_{{$data->id}}" disabled>
                                         </td>
                                         <td class="ctr">
-                                            <textarea class="form-control swal2-textarea textarea-rapot" cols="50" rows="5" disabled></textarea>
+                                            <textarea class="form-control swal2-textarea textarea-rapot deskripsi_{{$data->id}}" cols="50" rows="5" disabled></textarea>
                                         </td>
-                                        <td class="ctr">
-                                            <i class="fas fa-exclamation-triangle" style="font-weight:bold;"></i>
+                                        <td class="ctr sub_{{$data->id}}">
+                                            <button type="button" id="submit-{{$data->id}}" class="btn btn-default btn_click" data-id="{{$data->id}}"><i class="nav-icon fas fa-save"></i></button>
                                         </td>
                                     @endif
                                 </tr>

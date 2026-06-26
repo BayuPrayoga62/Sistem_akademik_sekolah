@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label for="kode">Kode Jadwal</label>
-                    <input type="text" id="kode" name="kode" class="form-control" value="{{ $guru->kode }}" disabled>
+                    <input type="text" id="kode" name="kode" class="form-control" value="{{ $guru->kode }}" {{ $guru->kode ? 'disabled' : '' }}>
                 </div>
             </div>
           </div>
