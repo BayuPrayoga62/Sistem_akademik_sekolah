@@ -154,6 +154,12 @@ class GuruController extends Controller
             'tmp_lahir' => $request->tmp_lahir,
             'tgl_lahir' => $request->tgl_lahir
         ];
+        if ($request->kode) {
+            $this->validate($request, [
+                'kode' => 'required|string|unique:guru|min:2|max:3',
+            ]);
+            $guru_data['kode'] = $request->kode;
+        }
         $guru->update($guru_data);
 
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');

@@ -314,11 +314,11 @@
                     class="group bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-emerald-200">
                     <div
                         class="w-14 h-14 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-white text-2xl">🔢</span>
+                        <span class="text-white text-2xl">📖</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Matematika</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tahfiz dan Tilawah</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Pembelajaran matematika tingkat menengah dengan pendekatan yang sistematis dan terukur
+                        Program hafalan dan perbaikan bacaan Al-Qur'an untuk mencetak generasi Qurani yang tartil
                     </p>
                     <div
                         class="mt-6 pt-6 border-t border-gray-100 group-hover:border-emerald-200 transition-colors duration-300">
@@ -332,9 +332,9 @@
                         class="w-14 h-14 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                         <span class="text-white text-2xl">🗣️</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Bahasa Indonesia dan Inggris</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Bahasa Inggris</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Penguasaan bahasa Indonesia dan Inggris untuk komunikasi lokal dan internasional
+                        Penguasaan bahasa Inggris untuk komunikasi lokal dan internasional
                     </p>
                     <div
                         class="mt-6 pt-6 border-t border-gray-100 group-hover:border-emerald-200 transition-colors duration-300">
@@ -346,11 +346,11 @@
                     class="group bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-emerald-200">
                     <div
                         class="w-14 h-14 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <span class="text-white text-2xl">🔬</span>
+                        <span class="text-white text-2xl">🧠</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Sains dan Teknologi</h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Tafsir Psikologi</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Pembelajaran serta pengenalan teknologi modern
+                        Mengkaji ayat-ayat Al-Qur'an dengan pendekatan psikologi untuk pembentukan jiwa dan karakter
                     </p>
                     <div
                         class="mt-6 pt-6 border-t border-gray-100 group-hover:border-emerald-200 transition-colors duration-300">
@@ -463,11 +463,11 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">Telepon & WhatsApp</h3>
-                                <a href="tel:+62215551234"
+                                <a href="tel:+6285951667568"
                                     class="text-gray-600 hover:text-gray-900 font-medium block mb-2">
-                                    +62 (21) 555-1234
+                                    +62 859-5166-7568
                                 </a>
-                                <a href="https://wa.me/6281234567890" target="_blank"
+                                <a href="https://wa.me/6285951667568" target="_blank"
                                     class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors">
                                     💬 WhatsApp
                                 </a>

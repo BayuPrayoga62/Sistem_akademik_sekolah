@@ -24,16 +24,9 @@ class SikapController extends Controller
     public function index()
     {
         $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-        if (
-            $guru->mapel->nama_mapel == "Pendidikan Agama dan Budi Pekerti" ||
-            $guru->mapel->nama_mapel == "Pendidikan Pancasila dan Kewarganegaraan"
-        ) {
-            $jadwal = Jadwal::where('guru_id', $guru->id)->orderBy('kelas_id')->get();
-            $kelas = $jadwal->groupBy('kelas_id');
-            return view('guru.sikap.index', compact('kelas', 'guru'));
-        } else {
-            return redirect()->back()->with('error', 'Maaf guru ini tidak dapat menambahkan nilai sikap!');
-        }
+        $jadwal = Jadwal::where('guru_id', $guru->id)->orderBy('kelas_id')->get();
+        $kelas = $jadwal->groupBy('kelas_id');
+        return view('guru.sikap.index', compact('kelas', 'guru'));
     }
 
     /**
@@ -58,28 +51,21 @@ class SikapController extends Controller
         $guru = Guru::findorfail($request->guru_id);
         $cekJadwal = Jadwal::where('guru_id', $guru->id)->where('kelas_id', $request->kelas_id)->count();
         if ($cekJadwal >= 1) {
-            if (
-                $guru->mapel->nama_mapel == "Pendidikan Agama dan Budi Pekerti" ||
-                $guru->mapel->nama_mapel == "Pendidikan Pancasila dan Kewarganegaraan"
-            ) {
-                Sikap::updateOrCreate(
-                    [
-                        'id' => $request->id
-                    ],
-                    [
-                        'siswa_id' => $request->siswa_id,
-                        'kelas_id' => $request->kelas_id,
-                        'guru_id' => $request->guru_id,
-                        'mapel_id' => $guru->mapel_id,
-                        'sikap_1' => $request->sikap_1,
-                        'sikap_2' => $request->sikap_2,
-                        'sikap_3' => $request->sikap_3
-                    ]
-                );
-                return response()->json(['success' => 'Nilai sikap siswa berhasil ditambahkan!']);
-            } else {
-                return redirect()->json(['error' => 'Maaf guru ini tidak dapat menambahkan nilai sikap!']);
-            }
+            Sikap::updateOrCreate(
+                [
+                    'id' => $request->id
+                ],
+                [
+                    'siswa_id' => $request->siswa_id,
+                    'kelas_id' => $request->kelas_id,
+                    'guru_id' => $request->guru_id,
+                    'mapel_id' => $guru->mapel_id,
+                    'sikap_1' => $request->sikap_1,
+                    'sikap_2' => $request->sikap_2,
+                    'sikap_3' => $request->sikap_3
+                ]
+            );
+            return response()->json(['success' => 'Nilai sikap siswa berhasil ditambahkan!']);
         } else {
             return response()->json(['error' => 'Maaf guru ini tidak mengajar kelas ini!']);
         }
@@ -142,7 +128,8 @@ class SikapController extends Controller
         $id = Crypt::decrypt($id);
         $siswa = Siswa::findorfail($id);
         $kelas = Kelas::findorfail($siswa->kelas_id);
-        $mapel = Mapel::where('nama_mapel', 'Pendidikan Agama dan Budi Pekerti')->orWhere('nama_mapel', 'Pendidikan Pancasila dan Kewarganegaraan')->get();
+        $mapel_ids = Jadwal::where('kelas_id', $kelas->id)->pluck('mapel_id')->unique();
+        $mapel = Mapel::whereIn('id', $mapel_ids)->get();
         return view('admin.sikap.show', compact('mapel', 'siswa', 'kelas'));
     }
 
@@ -150,7 +137,8 @@ class SikapController extends Controller
     {
         $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
         $kelas = Kelas::findorfail($siswa->kelas_id);
-        $mapel = Mapel::where('nama_mapel', 'Pendidikan Agama dan Budi Pekerti')->orWhere('nama_mapel', 'Pendidikan Pancasila dan Kewarganegaraan')->get();
+        $mapel_ids = Jadwal::where('kelas_id', $kelas->id)->pluck('mapel_id')->unique();
+        $mapel = Mapel::whereIn('id', $mapel_ids)->get();
         return view('siswa.sikap', compact('siswa', 'kelas', 'mapel'));
     }
 }
